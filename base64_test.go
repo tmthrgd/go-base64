@@ -20,7 +20,7 @@ func testEncode(t *testing.T, enc Encoding, ref *ref.Encoding) {
 			off := rand.Intn(32)
 
 			//data := make([]byte, 1 + rand.Intn(1024*1024) + off)
-			data := make([]byte, 1 + rand.Intn(32) + off)
+			data := make([]byte, 1+rand.Intn(32)+off)
 			rand.Read(data[off:])
 			args[0] = reflect.ValueOf(data[off:])
 		},

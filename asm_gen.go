@@ -223,16 +223,16 @@ func encodeASM(a *asm.Asm) {
 	var c52 byte = 52
 	base := a.Data("encodeBase", bytes.Join([][]byte{
 		repeat('A', 16),
-		repeat('a' - 26, 16),
-		repeat('0' - c52, 16),
+		repeat('a'-26, 16),
+		repeat('0'-c52, 16),
 		repeat('+', 16),
 		repeat('/', 16),
 		repeat('-', 16),
 		repeat('_', 16),
 	}, nil))
 	lookup := a.DataString("encodeLookup",
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" +
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"+
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
 
 	a.NewFunction("encodeASM")
 	a.NoSplit()
@@ -308,7 +308,7 @@ func encodeASM(a *asm.Asm) {
 	a.Label(loop)
 
 	for i, r := range []asm.Operand{asm.R9, asm.R10, asm.R11} {
-		a.Movb(r, asm.Address(e.si, 2 - i))
+		a.Movb(r, asm.Address(e.si, 2-i))
 	}
 
 	a.Movq(asm.R12, asm.R9)
@@ -338,7 +338,7 @@ func encodeASM(a *asm.Asm) {
 	}
 
 	for i, r := range []asm.Operand{asm.R12, asm.R13, asm.R14, asm.R15} {
-		a.Movb(asm.Address(e.di, 3 - i), r)
+		a.Movb(asm.Address(e.di, 3-i), r)
 	}
 
 	a.Subq(e.cx, asm.Constant(3))
