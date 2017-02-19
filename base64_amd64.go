@@ -32,6 +32,8 @@ func (enc Encoding) WithPadding(padding rune) Encoding {
 	return Encoding{enc.url, padding}
 }
 
+// TODO: func (enc Encoding) Strict() Encoding {}
+
 func (enc Encoding) EncodeToString(src []byte) string {
 	buf := make([]byte, enc.EncodedLen(len(src)))
 	enc.Encode(buf, src)

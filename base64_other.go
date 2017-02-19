@@ -35,6 +35,8 @@ func (enc Encoding) WithPadding(padding rune) Encoding {
 	return Encoding{enc.impl.WithPadding(padding)}
 }
 
+// TODO: func (enc Encoding) Strict() Encoding {}
+
 func (enc Encoding) Decode(dst, src []byte) (n int, err error) {
 	n, err = enc.impl.Decode(dst, src)
 	if _, ok := err.(ref.CorruptInputError); ok {

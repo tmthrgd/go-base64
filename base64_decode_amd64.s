@@ -58,13 +58,10 @@ TEXT ·decodeASM(SB),NOSPLIT,$0
 	MOVQ decodeShifts<>(SB), X15
 bigloop_avx:
 	MOVOU (SI), X1
-	// VPSRLD $4, X1, X2
-	BYTE $0xc5; BYTE $0xe9; BYTE $0x72; BYTE $0xd1; BYTE $0x04
+	VPSRLD $4, X1, X2
 	PAND decodeNibble<>(SB), X2
-	// VPSHUFB X2, X13, X3
-	BYTE $0xc4; BYTE $0xe2; BYTE $0x11; BYTE $0x00; BYTE $0xda
-	// VPSHUFB X2, X14, X0
-	BYTE $0xc4; BYTE $0xe2; BYTE $0x09; BYTE $0x00; BYTE $0xc2
+	VPSHUFB X2, X13, X3
+	VPSHUFB X2, X14, X0
 	// VPCMPGTB X1, X3, X4
 	BYTE $0xc5; BYTE $0xe1; BYTE $0x64; BYTE $0xe1
 	// VPCMPGTB X0, X1, X5
@@ -73,8 +70,7 @@ bigloop_avx:
 	POR X5, X4
 	PANDN X4, X6
 	PMOVMSKB X6, AX
-	// VPSHUFB X2, X15, X7
-	BYTE $0xc4; BYTE $0xe2; BYTE $0x01; BYTE $0x00; BYTE $0xfa
+	VPSHUFB X2, X15, X7
 	PSUBB X0, X1
 	PADDB X7, X1
 	PAND decode2fOffset<>(SB), X6
